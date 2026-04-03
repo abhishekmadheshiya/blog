@@ -12,8 +12,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-dev-key')
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+
 # ALLOWED_HOSTS = ['*']  # Later replace with your Render URL
-ALLOW_HOSTS = os.environ.get("DEBUG","false").lower()=='true'
+# ALLOWED_HOSTS = os.environ.get("DEBUG","false").lower()=='true'
 
 # ========================
 # APPLICATIONS
