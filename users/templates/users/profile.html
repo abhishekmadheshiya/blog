@@ -1,0 +1,43 @@
+﻿
+{% extends 'blog/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class='content-section'>
+    <h2>Profile Dashboard</h2>
+    {% if user.is_authenticated %}
+      <div class='row'>
+        <div class='col-md-4'>
+          <div class='card mb-3'>
+            {% if user.profile.image %}
+              <img src='{{ user.profile.image.url }}' class='card-img-top rounded-circle p-3' alt='Profile image'>
+            {% else %}
+              <img src='{{ MEDIA_URL }}profile_pics/default.jpg' class='card-img-top rounded-circle p-3' alt='Default profile image'>
+            {% endif %}
+            <div class='card-body'>
+              <h5 class='card-title'>{{ user.username }}</h5>
+              <p class='card-text'><strong>Email:</strong> {{ user.email|default:'Not set' }}</p>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-8'>
+          <form method='POST' enctype='multipart/form-data'>
+            {% csrf_token %}
+            <div class='card mb-3'>
+              <div class='card-body'>
+                <h5 class='card-title'>Update Profile</h5>
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+                <button type='submit' class='btn btn-primary'>Save Changes</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    {% else %}
+      <div class='alert alert-warning'>
+        You are not logged in. Please <a href='{% url "login" %}'>login</a> to view your profile.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

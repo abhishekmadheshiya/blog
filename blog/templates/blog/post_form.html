@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="content-section">
+  <form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">{{ view.title | default_if_none:"Create Post" }}</legend>
+      {{ form|crispy }}
+    </fieldset>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-secondary" href="{% url 'blog-home' %}">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock content %}
